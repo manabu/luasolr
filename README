@@ -1,1 +1,9 @@
 using solr from lua
+
+HOWTO:
+start solr
+
+lua luasolr_sample.lua
+
+TODO:
+escape
