@@ -66,7 +66,7 @@ print("--- search for no such id")
 search("no_such_id_document")
 
 
--- TODO search after delete with escape
--- print("--- search for no such id")
--- search("no such id document")
+-- search after delete with escape
+print("--- search for no such id")
+search("no such id document")
 

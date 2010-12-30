@@ -114,11 +114,30 @@ function search(doc)
 end
 
 function search_doc(doc)
-   local val = "("
-
+   local val = ""
+   val = "("
    for k,v in pairs(doc) do
-      val = val ..k..":"..tostring(v)
+      val = val ..escape(k)..":".."\""..escape(tostring(v)).."\""
    end
    val = val..")"
-   return val
+   return url_encode(val)
+end
+
+function escape(value)
+   -- original from perl code "+-&|!(){}[]^\"~*?:\\"
+   -- Is order is important ?
+   --     [] -> ] ... [
+   local escaped_chars = "]+-\\&|\!\(){}\[^\"~?:\\"
+   local escapedText = string.gsub(value, "[".. escaped_chars .. "]", "\\%1")
+   return escapedText
+end
+
+function url_encode(str)
+  if (str) then
+    str = string.gsub (str, "\n", "\r\n")
+    str = string.gsub (str, "([^%w ])",
+        function (c) return string.format ("%%%02X", string.byte(c)) end)
+    str = string.gsub (str, " ", "+")
+  end
+  return str
 end
